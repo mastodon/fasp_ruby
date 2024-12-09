@@ -1,4 +1,4 @@
-name: CI
+name: CI fasp_base
 
 on:
   pull_request:

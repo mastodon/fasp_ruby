@@ -1,4 +1,4 @@
-name: CI
+name: CI - debug_fasp
 
 on:
   pull_request:
