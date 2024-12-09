@@ -3,11 +3,11 @@ name: CI - debug_fasp
 on:
   pull_request:
     paths:
-      - "/debug_fasp"
+      - "debug_fasp/**"
   push:
     branches: [ main ]
     paths:
-      - "/debug_fasp"
+      - "debug_fasp/**"
 
 defaults:
   run:

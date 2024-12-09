@@ -3,11 +3,11 @@ name: CI fasp_base
 on:
   pull_request:
     paths:
-      - "/fasp_base"
+      - "fasp_base/**"
   push:
     branches: [ main ]
     paths:
-      - "/fasp_base"
+      - "fasp_base/**"
 
 defaults:
   run:
