@@ -1,0 +1,30 @@
+<h1 class="text-2xl font-bold mb-4">Logged Requests</h1>
+
+<table class="border-separate border-spacing-2">
+  <thead>
+    <tr>
+      <th>Base URL</th>
+      <th>IP address</th>
+      <th>Timestamp</th>
+      <th>Payload</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr class="even:bg-blue-50">
+        <td><%= log.fasp_base_server.base_url %></td>
+        <td><%= log.ip %></td>
+        <td><%= log.created_at %></td>
+        <td>
+          <code class="font-mono">
+            <%= log.request_body %>
+          </code>
+        </td>
+        <td>
+          <%= link_to t(".destroy"), log_path(log), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

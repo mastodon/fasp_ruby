@@ -1,0 +1,28 @@
+<h1 class="text-xl font-bold mb-4"><%=t ".sign_up" %></h1>
+
+<%= form_with model: @registration, url: fasp_base.registration_path do |form| %>
+  <% if form.object.errors.any? %>
+    <ul>
+      <% form.object.errors.full_messages.each do |message| %>
+        <li class="text-red-600"><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="flex flex-col">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true, autofocus: true %>
+
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, required: true %>
+
+    <%= form.label :base_url %>
+    <%= form.url_field :base_url %>
+  </div>
+
+  <div class="my-4">
+    <%= form.button t(".sign_up"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+fedi_admin:
+  email: fediadmin@example.com
+  password_digest: <%= BCrypt::Password.create('super_secret')  %>
+mastodon_admin:
+  email: mastodon_admin@example.com
+  password_digest: <%= BCrypt::Password.create('super_secret')  %>

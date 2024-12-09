@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+mastodon_server:
+  user: mastodon_admin
+  base_url: "https://mastodon.example.com/api/fasp"
+  fasp_remote_id: "testfasp23"
+  fasp_private_key_pem: <%= OpenSSL::PKey.generate_key('ed25519').private_to_pem.dump %>
+  registration_completion_uri: "https://mastodon.example.com/admin/fasps"
+
