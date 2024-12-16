@@ -1,0 +1,17 @@
+content_lifecycle:
+  fasp_base_server: fedi_server
+  category: content
+  subscription_type: lifecycle
+  remote_id: a34
+  max_batch_size: 10
+
+content_trends:
+  fasp_base_server: fedi_server
+  category: content
+  subscription_type: trends
+  remote_id: cd41
+  max_batch_size: 10
+  threshold_timeframe: 15
+  threshold_shares: 3
+  threshold_likes: 3
+  threshold_replies: 3

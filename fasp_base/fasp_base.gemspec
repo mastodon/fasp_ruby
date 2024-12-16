@@ -5,18 +5,13 @@ Gem::Specification.new do |spec|
   spec.version     = FaspBase::VERSION
   spec.authors     = [ "David Roetzel" ]
   spec.email       = [ "david@roetzel.de" ]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of FaspBase."
-  spec.description = "TODO: Description of FaspBase."
+  spec.homepage    = "https://github.com/mastodon/fasp_ruby/fasp_base"
+  spec.summary     = "Basic building blocks for a rails-based FASP"
+  spec.description = "A rails engine that includes the basic building blocks to develop a Fediverse Auxiliary Services Provider"
   spec.license     = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = spec.homepage
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

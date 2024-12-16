@@ -5,8 +5,8 @@ class Fasp::Debug::V0::LogsTest < ActionDispatch::IntegrationTest
 
   setup do
     # stub fediverse server
-    stub_request(:post, "https://mastodon.example.com/api/fasp/debug/v0/callback/responses")
-      .to_return(status: 201)
+    @server = fasp_base_servers(:mastodon_server)
+    stub_request_to(@server, :post, "/debug/v0/callback/responses", 201, "")
   end
 
   test "unauthenticated access is prohibited" do
@@ -18,7 +18,7 @@ class Fasp::Debug::V0::LogsTest < ActionDispatch::IntegrationTest
   test "authenticated request creates log entry" do
     payload = { hello: "world" }
     uri = fasp_debug_v0_callback_logs_url
-    headers = authentication_headers(:post, uri, payload)
+    headers = request_authentication_headers(@server, :post, uri, payload)
 
     assert_difference -> { Log.count }, 1 do
       post fasp_debug_v0_callback_logs_path, as: :json, params: payload, headers: headers

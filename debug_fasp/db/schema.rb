@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_142715) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_13_160501) do
+  create_table "contents", force: :cascade do |t|
+    t.string "uri", null: false
+    t.string "object_type", null: false
+    t.json "full_object", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uri"], name: "index_contents_on_uri", unique: true
+  end
+
   create_table "fasp_base_servers", force: :cascade do |t|
     t.string "base_url", null: false
     t.integer "user_id", null: false
@@ -32,6 +41,38 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_142715) do
     t.index ["email"], name: "index_fasp_base_users_on_email", unique: true
   end
 
+  create_table "fasp_data_sharing_actors", force: :cascade do |t|
+    t.text "private_key_pem", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fasp_data_sharing_backfill_requests", force: :cascade do |t|
+    t.integer "fasp_base_server_id", null: false
+    t.string "remote_id", null: false
+    t.string "category", null: false
+    t.integer "max_count"
+    t.string "cursor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fasp_base_server_id"], name: "idx_on_fasp_base_server_id_0f3fe7f51e"
+  end
+
+  create_table "fasp_data_sharing_subscriptions", force: :cascade do |t|
+    t.integer "fasp_base_server_id", null: false
+    t.string "remote_id", null: false
+    t.string "category", null: false
+    t.string "subscription_type", null: false
+    t.integer "max_batch_size"
+    t.integer "threshold_timeframe"
+    t.integer "threshold_shares"
+    t.integer "threshold_likes"
+    t.integer "threshold_replies"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fasp_base_server_id"], name: "index_fasp_data_sharing_subscriptions_on_fasp_base_server_id"
+  end
+
   create_table "logs", force: :cascade do |t|
     t.integer "fasp_base_server_id", null: false
     t.string "ip"
@@ -42,5 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_142715) do
   end
 
   add_foreign_key "fasp_base_servers", "fasp_base_users", column: "user_id"
+  add_foreign_key "fasp_data_sharing_backfill_requests", "fasp_base_servers"
+  add_foreign_key "fasp_data_sharing_subscriptions", "fasp_base_servers"
   add_foreign_key "logs", "fasp_base_servers"
 end

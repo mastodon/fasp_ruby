@@ -25,6 +25,7 @@
       </p>
       <% if signed_in? %>
         <%= link_to t(".logs"), main_app.logs_path %>
+        <%= link_to t(".subscriptions"), main_app.subscriptions_path %>
         <%= link_to t('.sign_out'), fasp_base.session_path, data: {turbo_method: :delete}, class: "hover:bg-blue-200" %>
       <% else %>
         <%= link_to t(".sign_up"), fasp_base.new_registration_path, class: "hover:bg-blue-200" %>

@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+fedi_server:
+  user: fedi_admin
+  base_url: "https://fedi.example.com/fasp"
+  fasp_remote_id: "testfasp23"
+  fasp_private_key_pem: <%= OpenSSL::PKey.generate_key('ed25519').private_to_pem.dump %>
+  registration_completion_uri: "https://fedi.example.com/admin/fasps"
+

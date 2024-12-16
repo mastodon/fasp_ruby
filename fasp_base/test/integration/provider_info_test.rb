@@ -47,7 +47,7 @@ class ProviderInfoTest < ActionDispatch::IntegrationTest
   def signature_headers_for(keyid:, key:)
     request = Linzer.new_request(:get, fasp_base.fasp_provider_info_url, {}, { "Content-Digest" => EMPTY_DIGEST })
     message = Linzer::Message.new(request)
-    linzer_key = Linzer.new_ed25519_key(key.raw_private_key, keyid)
+    linzer_key = Linzer.new_ed25519_key(key.private_to_pem, keyid)
     signature = Linzer.sign(linzer_key, message, %w[@method @target-uri content-digest])
     signature.to_h
   end

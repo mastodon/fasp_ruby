@@ -1,0 +1,5 @@
+accounts:
+  fasp_base_server: fedi_server
+  category: account
+  remote_id: f1b
+  max_count: 10

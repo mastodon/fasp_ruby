@@ -66,7 +66,7 @@ module FaspBase
         }
       )
       message = Linzer::Message.new(linzer_request)
-      key = Linzer.new_ed25519_public_key(server.raw_public_key, keyid)
+      key = Linzer.new_ed25519_public_key(server.public_key_pem, keyid)
       signature = Linzer::Signature.build(message.headers)
       Linzer.verify(key, message, signature)
       @current_server = server
@@ -77,7 +77,7 @@ module FaspBase
 
       linzer_response = Linzer.new_response(response.body, response.status, { "content-digest" => response.headers["content-digest"] })
       message = Linzer::Message.new(linzer_response)
-      key = Linzer.new_ed25519_key(current_server.fasp_private_key.raw_private_key)
+      key = Linzer.new_ed25519_key(current_server.fasp_private_key_pem)
       signature = Linzer.sign(key, message, %w[@status content-digest])
 
       response.headers.merge!(signature.to_h)
