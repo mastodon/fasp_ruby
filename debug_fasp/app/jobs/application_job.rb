@@ -4,4 +4,10 @@ class ApplicationJob < ActiveJob::Base
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
+
+  private
+
+  def fetch_object(uri)
+    FaspDataSharing::ActivityPubObject.new(uri:).fetch
+  end
 end

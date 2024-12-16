@@ -11,10 +11,4 @@ class FaspDataSharing::ProcessNewContentJob < ApplicationJob
       )
     end
   end
-
-  private
-
-  def fetch_object(uri)
-    FaspDataSharing::ActivityPubObject.new(uri:).fetch
-  end
 end

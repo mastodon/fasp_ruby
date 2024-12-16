@@ -1,0 +1,35 @@
+<div class="flex gap-2 my-4 border-b border-blue-100">
+  <%= link_to t(".subscriptions"), subscriptions_path, class: "hover:bg-blue-50 p-2" %>
+  <span class="bg-blue-100 p-2">
+    <%= t(".contents") %>
+  </span>
+  <%= link_to t(".accounts"), contents_path, class: "hover:bg-blue-50 p-2" %>
+</div>
+
+<h1 class="text-2xl font-bold mb-4"><%= t(".contents") %></h1>
+
+<table class="border-separate border-spacing-2">
+  <thead>
+    <tr>
+      <th><%= Content.human_attribute_name(:uri) %></th>
+      <th><%= Content.human_attribute_name(:object_type) %></th>
+      <th><%= Content.human_attribute_name(:created_at) %></th>
+      <th><%= Content.human_attribute_name(:updated_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contents.each do |content| %>
+      <tr class="even:bg-blue-50">
+        <td><%= content.uri %></td>
+        <td><%= content.object_type %></td>
+        <td><%= content.created_at %></td>
+        <td><%= content.updated_at %></td>
+        <td>
+          <%= link_to t(".show"), content_path(content), class: "font-bold text-sm hover:underline hover:text-red-400" %>
+          <%= link_to t(".destroy"), content_path(content), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
