@@ -1,0 +1,29 @@
+<div class="flex justify-between">
+  <h1 class="text-2xl font-bold mb-4"><%= t(".content") %></h1>
+  <%= link_to t(".destroy"), content_path(@content), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+</div>
+
+<p>
+  <b><%= Content.human_attribute_name(:uri) %></b>
+  <%= @content.uri %>
+</p>
+<p>
+  <b><%= Content.human_attribute_name(:object_type) %></b>
+  <%= @content.object_type %>
+</p>
+<p>
+  <b><%= Content.human_attribute_name(:created_at) %></b>
+  <%= @content.created_at %>
+</p>
+<p>
+  <b><%= Content.human_attribute_name(:updated_at) %></b>
+  <%= @content.updated_at %>
+</p>
+
+<p>
+  <b><%= Content.human_attribute_name(:full_object) %></b>
+</p>
+
+<pre class="rounded bg-gray-100 p-2">
+<%= JSON.pretty_generate(@content.full_object) %>
+</pre>
