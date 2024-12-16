@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./fasp_data_sharing
+    working-directory: ../fasp_data_sharing
 
 jobs:
   lint:

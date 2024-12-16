@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./debug_fasp
+    working-directory: ../debug_fasp
 
 jobs:
   scan_ruby:
