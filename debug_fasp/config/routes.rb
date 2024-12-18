@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :subscriptions, only: [ :index, :create, :destroy ]
 
+  resources :trend_signals, only: [ :index, :destroy ]
+
   mount FaspBase::Engine, at: "/"
   mount FaspDataSharing::Engine, at: "/"
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

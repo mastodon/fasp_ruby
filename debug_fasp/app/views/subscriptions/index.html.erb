@@ -1,10 +1,4 @@
-<div class="flex gap-2 my-4 border-b border-blue-100">
-  <span class="bg-blue-100 p-2">
-    <%= t(".subscriptions") %>
-  </span>
-  <%= link_to t(".contents"), contents_path, class: "hover:bg-blue-50 p-2" %>
-  <%= link_to t(".accounts"), contents_path, class: "hover:bg-blue-50 p-2" %>
-</div>
+<%= render "shared/data_sharing_tabs", active: :subscriptions %>
 
 <h1 class="text-2xl font-bold mb-4"><%= t(".subscriptions") %></h1>
 
@@ -33,8 +27,25 @@
   </tbody>
 </table>
 
-<% if @subscriptions.none? %>
-  <%= form_with url: subscriptions_path do |form| %>
-    <%= form.button t(".create"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+<div class="flex gap-4">
+  <% if content_subscription_absent? %>
+    <%= form_with url: subscriptions_path do |form| %>
+      <%= hidden_field_tag :type, "content" %>
+      <%= form.button t(".create_content_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+    <% end %>
   <% end %>
-<% end %>
+
+  <% if account_subscription_absent? %>
+    <%= form_with url: subscriptions_path do |form| %>
+      <%= hidden_field_tag :type, "account" %>
+      <%= form.button t(".create_account_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+    <% end %>
+  <% end %>
+
+  <% if trends_subscription_absent? %>
+    <%= form_with url: subscriptions_path do |form| %>
+      <%= hidden_field_tag :type, "trends" %>
+      <%= form.button t(".create_trends_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+    <% end %>
+  <% end %>
+</div>

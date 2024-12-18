@@ -1,10 +1,4 @@
-<div class="flex gap-2 my-4 border-b border-blue-100">
-  <%= link_to t(".subscriptions"), subscriptions_path, class: "hover:bg-blue-50 p-2" %>
-  <span class="bg-blue-100 p-2">
-    <%= t(".contents") %>
-  </span>
-  <%= link_to t(".accounts"), contents_path, class: "hover:bg-blue-50 p-2" %>
-</div>
+<%= render "shared/data_sharing_tabs", active: :contents %>
 
 <h1 class="text-2xl font-bold mb-4"><%= t(".contents") %></h1>
 

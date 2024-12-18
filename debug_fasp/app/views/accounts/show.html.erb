@@ -1,0 +1,29 @@
+<div class="flex justify-between">
+  <h1 class="text-2xl font-bold mb-4"><%= t(".account") %></h1>
+  <%= link_to t(".destroy"), account_path(@account), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+</div>
+
+<p>
+  <b><%= Account.human_attribute_name(:uri) %></b>
+  <%= @account.uri %>
+</p>
+<p>
+  <b><%= Account.human_attribute_name(:object_type) %></b>
+  <%= @account.object_type %>
+</p>
+<p>
+  <b><%= Account.human_attribute_name(:created_at) %></b>
+  <%= @account.created_at %>
+</p>
+<p>
+  <b><%= Account.human_attribute_name(:updated_at) %></b>
+  <%= @account.updated_at %>
+</p>
+
+<p>
+  <b><%= Account.human_attribute_name(:full_object) %></b>
+</p>
+
+<pre class="rounded bg-gray-100 p-2">
+<%= JSON.pretty_generate(@account.full_object) %>
+</pre>

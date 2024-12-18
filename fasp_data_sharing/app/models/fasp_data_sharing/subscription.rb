@@ -15,6 +15,11 @@ module FaspDataSharing
     validates :category, presence: true, inclusion: CATEGORIES
     validates :subscription_type, presence: true, inclusion: TYPES
 
+    scope :content, -> { where(category: "content") }
+    scope :account, -> { where(category: "account") }
+    scope :lifecycle, -> { where(subscription_type: "lifecycle") }
+    scope :trends, -> { where(subscription_type: "trends") }
+
     before_destroy :delete_on_server
 
     class << self

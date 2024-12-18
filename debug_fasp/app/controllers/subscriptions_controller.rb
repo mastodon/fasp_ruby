@@ -1,10 +1,13 @@
 class SubscriptionsController < ApplicationController
+  helper_method :current_server
+
   def index
-    @subscriptions = FaspDataSharing::Subscription.all
+    @subscriptions = FaspDataSharing::Subscription
+      .where(fasp_base_server: current_server).all
   end
 
   def create
-    FaspDataSharing::Subscription.subscribe_to_content(current_user.servers.first)
+    create_subscription
 
     redirect_to subscriptions_path, notice: t(".success")
   end
@@ -14,5 +17,22 @@ class SubscriptionsController < ApplicationController
     subscription.destroy
 
     redirect_to subscriptions_path, notice: t(".success")
+  end
+
+  private
+
+  def current_server
+    @current_server ||= current_user.servers.first
+  end
+
+  def create_subscription
+    case params[:type]
+    when "content"
+      FaspDataSharing::Subscription.subscribe_to_content(current_server)
+    when "account"
+      FaspDataSharing::Subscription.subscribe_to_accounts(current_server)
+    when "trends"
+      FaspDataSharing::Subscription.subscribe_to_trends(current_server)
+    end
   end
 end

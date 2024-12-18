@@ -1,0 +1,26 @@
+<%= render "shared/data_sharing_tabs", active: :trend_signals %>
+
+<h1 class="text-2xl font-bold mb-4"><%= t(".trend_signals") %></h1>
+
+<table class="border-separate border-spacing-2">
+  <thead>
+    <tr>
+      <th><%= Content.human_attribute_name(:uri) %></th>
+      <th><%= TrendSignal.human_attribute_name(:created_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @trend_signals.each do |trend_signal| %>
+      <tr class="even:bg-blue-50">
+        <td>
+          <%= link_to trend_signal.content.uri, content_path(trend_signal.content), class: "underline" %>
+        </td>
+        <td><%= trend_signal.created_at %></td>
+        <td>
+          <%= link_to t(".destroy"), trend_signal_path(trend_signal), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_13_160501) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_17_121936) do
+  create_table "accounts", force: :cascade do |t|
+    t.string "uri", null: false
+    t.string "object_type", null: false
+    t.json "full_object", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uri"], name: "index_accounts_on_uri", unique: true
+  end
+
   create_table "contents", force: :cascade do |t|
     t.string "uri", null: false
     t.string "object_type", null: false
@@ -82,8 +91,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_13_160501) do
     t.index ["fasp_base_server_id"], name: "index_logs_on_fasp_base_server_id"
   end
 
+  create_table "trend_signals", force: :cascade do |t|
+    t.integer "content_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_trend_signals_on_content_id"
+  end
+
   add_foreign_key "fasp_base_servers", "fasp_base_users", column: "user_id"
   add_foreign_key "fasp_data_sharing_backfill_requests", "fasp_base_servers"
   add_foreign_key "fasp_data_sharing_subscriptions", "fasp_base_servers"
   add_foreign_key "logs", "fasp_base_servers"
+  add_foreign_key "trend_signals", "contents"
 end

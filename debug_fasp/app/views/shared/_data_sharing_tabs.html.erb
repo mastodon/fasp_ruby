@@ -1,0 +1,11 @@
+<div class="flex gap-2 my-4 border-b border-blue-100">
+  <% ApplicationHelper::DATA_SHARING_TABS.each do |key, path| %>
+    <% text = t(key, scope: "data_sharing.tabs") %>
+    <% if key == active %>
+      <span class="bg-blue-100 p-2"><%= text %></span>
+    <% else %>
+      <%= link_to text, send(path), class: "hover:bg-blue-50 p-2" %>
+    <% end %>
+  <% end %>
+</div>
+
