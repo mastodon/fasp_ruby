@@ -1,8 +1,10 @@
 <%= render "shared/data_sharing_tabs", active: :accounts %>
 
-<h1 class="text-2xl font-bold mb-4"><%= t(".accounts") %></h1>
+<%= page_header do %>
+  <%= t(".accounts") %>
+<% end %>
 
-<table class="border-separate border-spacing-2">
+<table>
   <thead>
     <tr>
       <th><%= Account.human_attribute_name(:uri) %></th>
@@ -15,14 +17,14 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr class="even:bg-blue-50">
-        <td><%= account.uri %></td>
-        <td><%= account.object_type %></td>
-        <td><%= account.created_at %></td>
-        <td><%= account.updated_at %></td>
-        <td>
-          <%= link_to t(".show"), account_path(account), class: "font-bold text-sm hover:underline hover:text-red-400" %>
-          <%= link_to t(".destroy"), account_path(account), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
-        </td>
+        <%= td do %><%= account.uri %><% end %>
+        <%= td do %><%= account.object_type %><% end %>
+        <%= td do %><%= account.created_at %><% end %>
+        <%= td do %><%= account.updated_at %><% end %>
+        <%= td do %>
+          <%= action_link_to t(".show"), account_path(account) %>
+          <%= action_link_to t(".destroy"), account_path(account), data: {turbo_method: :delete} %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

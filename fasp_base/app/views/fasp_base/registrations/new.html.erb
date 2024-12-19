@@ -1,4 +1,6 @@
-<h1 class="text-xl font-bold mb-4"><%=t ".sign_up" %></h1>
+<%= page_header do %>
+  <%=t ".sign_up" %>
+<% end %>
 
 <%= form_with model: @registration, url: fasp_base.registration_path do |form| %>
   <% if form.object.errors.any? %>
@@ -23,6 +25,8 @@
   </div>
 
   <div class="my-4">
-    <%= form.button t(".sign_up"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+    <%= button type: :submit do %>
+      <%= t(".sign_up") %>
+    <% end %>
   </div>
 <% end %>

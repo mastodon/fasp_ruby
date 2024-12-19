@@ -1,4 +1,6 @@
-<h1 class="text-xl font-bold mb-4"><%=t ".registration_successful" %></h1>
+<%= page_header do %>
+  <%=t ".registration_successful" %>
+<% end %>
 
 <p><%=t ".finish_registration_instructions" %></p>
 
@@ -8,5 +10,5 @@
   <%= @server.fasp_public_key_fingerprint %>
 </code>
 
-<%= link_to t(".finish_setup_link"), @server.registration_completion_uri, target: "_blank", class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+<%= button_link_to t(".finish_setup_link"), @server.registration_completion_uri, target: "_blank" %>
 

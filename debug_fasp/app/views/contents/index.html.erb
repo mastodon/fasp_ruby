@@ -1,8 +1,10 @@
 <%= render "shared/data_sharing_tabs", active: :contents %>
 
-<h1 class="text-2xl font-bold mb-4"><%= t(".contents") %></h1>
+<%= page_header do %>
+  <%= t(".contents") %>
+<% end %>
 
-<table class="border-separate border-spacing-2">
+<table>
   <thead>
     <tr>
       <th><%= Content.human_attribute_name(:uri) %></th>
@@ -15,14 +17,14 @@
   <tbody>
     <% @contents.each do |content| %>
       <tr class="even:bg-blue-50">
-        <td><%= content.uri %></td>
-        <td><%= content.object_type %></td>
-        <td><%= content.created_at %></td>
-        <td><%= content.updated_at %></td>
-        <td>
-          <%= link_to t(".show"), content_path(content), class: "font-bold text-sm hover:underline hover:text-red-400" %>
-          <%= link_to t(".destroy"), content_path(content), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
-        </td>
+        <%= td do %><%= content.uri %><% end %>
+        <%= td do %><%= content.object_type %><% end %>
+        <%= td do %><%= content.created_at %><% end %>
+        <%= td do %><%= content.updated_at %><% end %>
+        <%= td do %>
+          <%= action_link_to t(".show"), content_path(content) %>
+          <%= action_link_to t(".destroy"), content_path(content), data: {turbo_method: :delete} %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

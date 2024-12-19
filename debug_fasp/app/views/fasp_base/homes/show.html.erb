@@ -1,0 +1,15 @@
+<%= page_header do %>
+  <%= t(".debug_provider") %>
+<% end %>
+
+<p class="my-4">
+  <%= link_to t(".logs"), main_app.logs_path, class: "text-xl underline text-blue-400 hover:text-blue-600" %>
+  <br>
+  <%= t(".logs_hint") %>
+</p>
+
+<p class="my-4">
+  <%= link_to t(".data_sharing"), main_app.subscriptions_path, class: "text-xl underline text-blue-400 hover:text-blue-600" %>
+  <br>
+  <%= t(".data_sharing_hint") %>
+</p>

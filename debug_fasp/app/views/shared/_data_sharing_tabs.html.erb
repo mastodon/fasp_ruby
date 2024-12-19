@@ -2,9 +2,9 @@
   <% ApplicationHelper::DATA_SHARING_TABS.each do |key, path| %>
     <% text = t(key, scope: "data_sharing.tabs") %>
     <% if key == active %>
-      <span class="bg-blue-100 p-2"><%= text %></span>
+      <span class="bg-blue-100 px-4 py-2"><%= text %></span>
     <% else %>
-      <%= link_to text, send(path), class: "hover:bg-blue-50 p-2" %>
+      <%= link_to text, send(path), class: "hover:bg-blue-50 px-4 py-2" %>
     <% end %>
   <% end %>
 </div>

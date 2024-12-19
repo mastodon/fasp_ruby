@@ -1,4 +1,6 @@
-<h1 class="text-xl font-bold mb-4"><%=t ".log_in" %></h1>
+<%= page_header do %>
+  <%=t ".log_in" %>
+<% end %>
 
 <%= form_with url: fasp_base.session_path do |form| %>
   <div class="flex flex-col">
@@ -10,6 +12,8 @@
   </div>
 
   <div class="my-4">
-    <%= form.button t(".log_in"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+    <%= button type: :submit do %>
+      <%= t(".log_in") %>
+    <% end %>
   </div>
 <% end %>

@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include FaspBase::ApplicationHelper
+
   DATA_SHARING_TABS = {
     subscriptions: :subscriptions_path,
     contents: :contents_path,
@@ -28,5 +30,9 @@ module ApplicationHelper
       .content
       .trends
       .none?
+  end
+
+  def nav_link_to(*args, **kwargs)
+    link_to(*args, **(kwargs.merge(class: "text-gray-600 font-medium px-2 py-1 rounded hover:bg-blue-200 hover:text-gray-700")))
   end
 end

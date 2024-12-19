@@ -1,6 +1,8 @@
-<h1 class="text-2xl font-bold mb-4">Logged Requests</h1>
+<%= page_header do %>
+  <%= t(".logged_requests") %>
+<% end %>
 
-<table class="border-separate border-spacing-2">
+<table>
   <thead>
     <tr>
       <th>Base URL</th>
@@ -13,17 +15,17 @@
   <tbody>
     <% @logs.each do |log| %>
       <tr class="even:bg-blue-50">
-        <td><%= log.fasp_base_server.base_url %></td>
-        <td><%= log.ip %></td>
-        <td><%= log.created_at %></td>
-        <td>
+        <%= td do %><%= log.fasp_base_server.base_url %><% end %>
+        <%= td do %><%= log.ip %><% end %>
+        <%= td do %><%= log.created_at %><% end %>
+        <%= td do %>
           <code class="font-mono">
             <%= log.request_body %>
           </code>
-        </td>
-        <td>
-          <%= link_to t(".destroy"), log_path(log), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
-        </td>
+        <% end %>
+        <%= td do %>
+          <%= action_link_to t(".destroy"), log_path(log), data: {turbo_method: :delete} %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

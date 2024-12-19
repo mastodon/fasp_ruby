@@ -1,51 +1,59 @@
 <%= render "shared/data_sharing_tabs", active: :subscriptions %>
 
-<h1 class="text-2xl font-bold mb-4"><%= t(".subscriptions") %></h1>
+<%= page_header do %>
+  <%= t(".subscriptions") %>
+<% end %>
 
-<table class="border-separate border-spacing-2">
+<table>
   <thead>
     <tr>
-      <th>Server</th>
-      <th>Category</th>
-      <th>Type</th>
-      <th>Created at</th>
+      <th><%= FaspDataSharing::Subscription.human_attribute_name(:fasp_base_server) %></th>
+      <th><%= FaspDataSharing::Subscription.human_attribute_name(:category) %></th>
+      <th><%= FaspDataSharing::Subscription.human_attribute_name(:subscription_type) %></th>
+      <th><%= FaspDataSharing::Subscription.human_attribute_name(:created_at) %></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <% @subscriptions.each do |subscription| %>
       <tr class="even:bg-blue-50">
-        <td><%= subscription.fasp_base_server.base_url %></td>
-        <td><%= subscription.category %></td>
-        <td><%= subscription.subscription_type %></td>
-        <td><%= subscription.created_at %></td>
-        <td>
-          <%= link_to t(".destroy"), subscription_path(subscription), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
-        </td>
+        <%= td do %><%= subscription.fasp_base_server.base_url %><% end %>
+        <%= td do %><%= subscription.category %><% end %>
+        <%= td do %><%= subscription.subscription_type %><% end %>
+        <%= td do %><%= subscription.created_at %><% end %>
+        <%= td do %>
+          <%= action_link_to t(".destroy"), subscription_path(subscription), data: {turbo_method: :delete}, class: "font-bold text-sm hover:underline hover:text-red-400" %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<div class="flex gap-4">
+<div class="mt-4 flex gap-4">
   <% if content_subscription_absent? %>
     <%= form_with url: subscriptions_path do |form| %>
       <%= hidden_field_tag :type, "content" %>
-      <%= form.button t(".create_content_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+      <%= button type: :submit do %>
+        <%= t(".create_content_subscription") %>
+      <% end %>
     <% end %>
   <% end %>
 
   <% if account_subscription_absent? %>
     <%= form_with url: subscriptions_path do |form| %>
       <%= hidden_field_tag :type, "account" %>
-      <%= form.button t(".create_account_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+      <%= button type: :submit do %>
+        <%= t(".create_account_subscription") %>
+      <% end %>
     <% end %>
   <% end %>
 
   <% if trends_subscription_absent? %>
     <%= form_with url: subscriptions_path do |form| %>
       <%= hidden_field_tag :type, "trends" %>
-      <%= form.button t(".create_trends_subscription"), class: "bg-blue-400 text-white font-bold rounded px-4 py-2" %>
+      <%= button type: :submit do %>
+        <%= t(".create_trends_subscription") %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
