@@ -7,7 +7,7 @@ module FaspDataSharing
       event.process
 
       respond_to do |format|
-        format.json { head :ok }
+        format.json { head :no_content }
       end
     end
 
