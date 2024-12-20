@@ -17,15 +17,12 @@ class FaspDataSharing::ActivityPubObject
   private
 
   def message_signature_request
-    request_with_headers(message_signature_headers)
+    HTTPX.with(headers: message_signature_headers).get(uri)
   end
 
+  # Forces HTTP 1.1 because http/2 does not allow the `Host` header we sign
   def signature_request
-    request_with_headers(signature_headers)
-  end
-
-  def request_with_headers(headers)
-    HTTPX.with(headers:).get(uri)
+    HTTPX.with(ssl: { alpn_protocols: %w[http/1.1] }, headers: signature_headers).get(uri)
   end
 
   def message_signature_headers

@@ -15,7 +15,7 @@ module FaspBase
   mattr_accessor :fediverse_account
 
   def self.base_url
-    protocol = Rails.env.production? ? "https:" : "http"
+    protocol = Rails.env.production? ? "https" : "http"
     "#{protocol}://#{domain}/fasp"
   end
 end
