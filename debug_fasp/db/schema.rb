@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_17_121936) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_03_144206) do
   create_table "accounts", force: :cascade do |t|
     t.string "uri", null: false
     t.string "object_type", null: false
@@ -61,9 +61,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_17_121936) do
     t.string "remote_id", null: false
     t.string "category", null: false
     t.integer "max_count"
-    t.string "cursor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "fulfilled", default: false, null: false
     t.index ["fasp_base_server_id"], name: "idx_on_fasp_base_server_id_0f3fe7f51e"
   end
 

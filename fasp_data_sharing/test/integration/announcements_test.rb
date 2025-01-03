@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ActorTest < ActionDispatch::IntegrationTest
+class AnnouncementsTest < ActionDispatch::IntegrationTest
   include FaspBase::IntegrationTestHelper
 
   setup do
@@ -81,7 +81,7 @@ class ActorTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "with a matching backfill request it enqueues jobs and updates the cursor" do
+  test "with a matching backfill request it enqueues jobs" do
     backfill_request = fasp_data_sharing_backfill_requests(:accounts)
     payload = {
       source: {
@@ -90,7 +90,7 @@ class ActorTest < ActionDispatch::IntegrationTest
         }
       },
       category: "account",
-      cursor: "efgh",
+      moreObjectsAvailable: true,
       objectUris: [
         "https://fediverse-server.example.com/@example/2342",
         "https://fediverse-server.example.com/@other/8726"
@@ -104,11 +104,10 @@ class ActorTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-    assert_equal "efgh", backfill_request.reload.cursor
   end
 
 
-  test "with a matching backfill request and no more objects to get it deletes the backfill request" do
+  test "with a matching backfill request and no more objects to get it marks the backfill request as fulfilled" do
     backfill_request = fasp_data_sharing_backfill_requests(:accounts)
     payload = {
       source: {
@@ -127,9 +126,11 @@ class ActorTest < ActionDispatch::IntegrationTest
     uri = fasp_data_sharing.fasp_data_sharing_v0_announcements_url
     headers = request_authentication_headers(@server, :post, uri, payload)
 
-    assert_difference -> { FaspDataSharing::BackfillRequest.count }, -1 do
+    assert_changes -> { backfill_request.fulfilled? } do
       assert_enqueued_jobs 2, only: FaspDataSharing::ProcessAccountBackfillJob do
         post fasp_data_sharing.fasp_data_sharing_v0_announcements_path, as: :json, params: payload, headers: headers
+
+        backfill_request.reload
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_11_140048) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_03_141700) do
   create_table "fasp_base_servers", force: :cascade do |t|
     t.string "base_url", null: false
     t.integer "user_id", null: false
@@ -20,8 +20,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_140048) do
     t.string "fasp_remote_id"
     t.string "public_key_pem"
     t.string "registration_completion_uri"
-    t.index [ "base_url" ], name: "index_fasp_base_servers_on_base_url", unique: true
-    t.index [ "user_id" ], name: "index_fasp_base_servers_on_user_id"
+    t.index ["base_url"], name: "index_fasp_base_servers_on_base_url", unique: true
+    t.index ["user_id"], name: "index_fasp_base_servers_on_user_id"
   end
 
   create_table "fasp_base_users", force: :cascade do |t|
@@ -29,7 +29,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_140048) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "email" ], name: "index_fasp_base_users_on_email", unique: true
+    t.index ["email"], name: "index_fasp_base_users_on_email", unique: true
   end
 
   create_table "fasp_data_sharing_actors", force: :cascade do |t|
@@ -43,10 +43,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_140048) do
     t.string "remote_id", null: false
     t.string "category", null: false
     t.integer "max_count"
-    t.string "cursor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "fasp_base_server_id" ], name: "idx_on_fasp_base_server_id_0f3fe7f51e"
+    t.boolean "fulfilled", default: false, null: false
+    t.index ["fasp_base_server_id"], name: "idx_on_fasp_base_server_id_0f3fe7f51e"
   end
 
   create_table "fasp_data_sharing_subscriptions", force: :cascade do |t|
@@ -61,7 +61,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_140048) do
     t.integer "threshold_replies"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index [ "fasp_base_server_id" ], name: "index_fasp_data_sharing_subscriptions_on_fasp_base_server_id"
+    t.index ["fasp_base_server_id"], name: "index_fasp_data_sharing_subscriptions_on_fasp_base_server_id"
   end
 
   add_foreign_key "fasp_base_servers", "fasp_base_users", column: "user_id"

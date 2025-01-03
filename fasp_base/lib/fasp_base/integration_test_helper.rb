@@ -20,7 +20,7 @@ module FaspBase::IntegrationTestHelper
     headers.merge(signature.to_h)
   end
 
-  def stub_request_to(server, method, path, response_status, response_body)
+  def stub_request_to(server, method, path, response_status, response_body = "")
     response_body = encode_body(response_body)
     response_headers = {
       "content-type" => "application/json"

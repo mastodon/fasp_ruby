@@ -30,7 +30,6 @@ class FaspDataSharing::Event
   attribute :source
   attribute :category, :string
   attribute :event_type, :string
-  attribute :cursor, :string
   attribute :more_objects_available, :boolean
   attribute :object_uris
 
@@ -56,8 +55,7 @@ class FaspDataSharing::Event
   def update_backfill_request
     return unless backfill_event?
 
-    @source_record.update(cursor:) if cursor
-    @source_record.destroy if more_objects_available == false
+    @source_record.mark_as_fulfilled! unless more_objects_available
   end
 
   def source_is_known
