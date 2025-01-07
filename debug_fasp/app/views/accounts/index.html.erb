@@ -1,8 +1,11 @@
 <%= render "shared/data_sharing_tabs", active: :accounts %>
 
-<%= page_header do %>
-  <%= t(".accounts") %>
-<% end %>
+<div class="flex justify-between items-center">
+  <%= page_header do %>
+    <%= t(".accounts") %>
+  <% end %>
+  <%= button_link_to t(".destroy_all"), accounts_path, data: {turbo_confirm: t('are_you_sure'), turbo_method: :delete} %>
+</div>
 
 <table>
   <thead>

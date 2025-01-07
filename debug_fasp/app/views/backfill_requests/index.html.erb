@@ -1,0 +1,49 @@
+<%= render "shared/data_sharing_tabs", active: :backfill_requests %>
+
+<%= page_header do %>
+  <%= t(".backfill_requests") %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= FaspDataSharing::BackfillRequest.human_attribute_name(:fasp_base_server) %></th>
+      <th><%= FaspDataSharing::BackfillRequest.human_attribute_name(:category) %></th>
+      <th><%= FaspDataSharing::BackfillRequest.human_attribute_name(:fulfilled) %></th>
+      <th><%= FaspDataSharing::BackfillRequest.human_attribute_name(:created_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @backfill_requests.each do |backfill_request| %>
+      <tr class="even:bg-blue-50">
+        <%= td do %><%= backfill_request.fasp_base_server.base_url %><% end %>
+        <%= td do %><%= backfill_request.category %><% end %>
+        <%= td do %><%= backfill_request.fulfilled %><% end %>
+        <%= td do %><%= backfill_request.created_at %><% end %>
+        <%= td do %>
+          <% unless backfill_request.fulfilled? %>
+            <%= action_link_to t(".continue"), backfill_request_path(backfill_request), data: {turbo_method: :patch} %>
+          <% end %>
+          <%= action_link_to t(".destroy"), backfill_request_path(backfill_request), data: {turbo_method: :delete} %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="mt-4 flex gap-4">
+  <%= form_with url: backfill_requests_path do |form| %>
+    <%= hidden_field_tag :type, "content" %>
+    <%= button type: :submit do %>
+      <%= t(".create_content_backfill_request") %>
+    <% end %>
+  <% end %>
+
+  <%= form_with url: backfill_requests_path do |form| %>
+    <%= hidden_field_tag :type, "account" %>
+    <%= button type: :submit do %>
+      <%= t(".create_account_backfill_request") %>
+    <% end %>
+  <% end %>
+</div>

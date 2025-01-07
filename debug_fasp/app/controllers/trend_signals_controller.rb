@@ -11,4 +11,10 @@ class TrendSignalsController < ApplicationController
 
     redirect_to trend_signals_path, notice: t(".success")
   end
+
+  def destroy_all
+    TrendSignal.delete_all
+
+    redirect_to contents_path, notice: t(".success")
+  end
 end

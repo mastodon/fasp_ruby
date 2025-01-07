@@ -21,10 +21,6 @@ class SubscriptionsController < ApplicationController
 
   private
 
-  def current_server
-    @current_server ||= current_user.servers.first
-  end
-
   def create_subscription
     case params[:type]
     when "content"

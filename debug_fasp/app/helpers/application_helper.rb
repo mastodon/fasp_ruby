@@ -3,6 +3,7 @@ module ApplicationHelper
 
   DATA_SHARING_TABS = {
     subscriptions: :subscriptions_path,
+    backfill_requests: :backfill_requests_path,
     contents: :contents_path,
     accounts: :accounts_path,
     trend_signals: :trend_signals_path

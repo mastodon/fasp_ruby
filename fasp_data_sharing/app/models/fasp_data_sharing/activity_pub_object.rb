@@ -8,7 +8,7 @@ class FaspDataSharing::ActivityPubObject
 
   def fetch
     response = message_signature_request
-    response = signature_request if response.status.in?([401, 403])
+    response = signature_request if response.status.in?([ 401, 403 ])
 
     response.raise_for_status
     JSON.parse(response.body.to_s) # TODO: simplify with response.json after next httpx release
