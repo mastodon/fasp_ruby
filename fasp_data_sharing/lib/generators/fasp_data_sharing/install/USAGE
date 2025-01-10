@@ -1,0 +1,5 @@
+Description:
+    Install the `fasp_data_sharing` engine
+
+Example:
+    bin/rails generate fasp_data_sharing:install

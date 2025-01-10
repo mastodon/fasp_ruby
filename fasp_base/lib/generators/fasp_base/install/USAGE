@@ -1,0 +1,5 @@
+Description:
+    Install fasp_base engine
+
+Example:
+    bin/rails generate fasp_base:install

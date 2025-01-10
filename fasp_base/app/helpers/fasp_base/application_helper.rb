@@ -28,6 +28,10 @@ module FaspBase
       link_to(*args, **(kwargs.merge(class: button_classes(kwargs))), &block)
     end
 
+    def nav_link_to(*args, **kwargs)
+      link_to(*args, **(kwargs.merge(class: "text-gray-600 font-medium px-2 py-1 rounded hover:bg-blue-200 hover:text-gray-700")))
+    end
+
     def button(type: :button, &block)
       tag.button(type:, class: button_classes, &block)
     end
