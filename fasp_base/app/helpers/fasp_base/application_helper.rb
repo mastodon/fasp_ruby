@@ -42,6 +42,18 @@ module FaspBase
       "#{BUTTON_CLASSES} #{colors}"
     end
 
+    def render_tabs(tabs, active:, scope:)
+      rendered_tabs = tabs.map do |key, path|
+        text = t(key, scope:)
+        if key == active
+          tag.span text, class: "bg-blue-100 px-4 py-2"
+        else
+          link_to text, send(path), class: "hover:bg-blue-50 px-4 py-2"
+        end
+      end
+      tag.div safe_join(rendered_tabs), class: "flex gap-2 my-4 border-b border-blue-100"
+    end
+
     private
 
     def delete_action?(options)

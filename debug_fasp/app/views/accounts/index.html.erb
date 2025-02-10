@@ -1,4 +1,4 @@
-<%= render "shared/data_sharing_tabs", active: :accounts %>
+<%= render_tabs ApplicationHelper::DATA_SHARING_TABS, active: :accounts, scope: "data_sharing.tabs" %>
 
 <div class="flex justify-between items-center">
   <%= page_header do %>

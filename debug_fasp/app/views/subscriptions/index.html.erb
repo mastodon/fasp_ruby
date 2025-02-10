@@ -1,4 +1,4 @@
-<%= render "shared/data_sharing_tabs", active: :subscriptions %>
+<%= render_tabs ApplicationHelper::DATA_SHARING_TABS, active: :subscriptions, scope: "data_sharing.tabs" %>
 
 <%= page_header do %>
   <%= t(".subscriptions") %>

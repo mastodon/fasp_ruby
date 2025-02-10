@@ -1,4 +1,4 @@
-<%= render "shared/data_sharing_tabs", active: :backfill_requests %>
+<%= render_tabs ApplicationHelper::DATA_SHARING_TABS, active: :backfill_requests, scope: "data_sharing.tabs" %>
 
 <%= page_header do %>
   <%= t(".backfill_requests") %>
