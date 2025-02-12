@@ -6,7 +6,7 @@ FaspBase.tap do |f|
   f.domain = ENV["DOMAIN"] || ActionController::Base.default_url_options[:host] || "localhost:3000"
 
   # Add supported capabilities here:
-  f.capabilities = [ ]
+  f.capabilities = []
 
   # Additional metadata
   # f.privacy_policy_url = ENV["PRIVACY_POLICY_URL"]

@@ -30,6 +30,25 @@ module FaspBase
       "#{base}#{path}"
     end
 
+    def capability_enabled?(capability, version:)
+      enabled_capabilities && enabled_capabilities.include?({ "id" => capability, "version" => version })
+    end
+
+    def enable_capability!(capability, version:)
+      raise ArgumentError, "unsupported capability" unless FaspBase.supports?(capability, version:)
+      self.enabled_capabilities ||= []
+      enabled_capabilities << { "id" => capability, "version" => version.to_i }
+      enabled_capabilities.uniq!
+      save!
+    end
+
+    def disable_capability!(capability, version:)
+      return if enabled_capabilities.blank?
+
+      enabled_capabilities.delete({ "id" => capability, "version" => version.to_i })
+      save!
+    end
+
     private
 
     def create_keypair

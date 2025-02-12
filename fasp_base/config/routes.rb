@@ -1,5 +1,8 @@
 FaspBase::Engine.routes.draw do
   namespace :fasp do
+    resources :capabilities, only: [] do
+      resource :activation, path: "/:version/activation", only: [ :create, :destroy ]
+    end
     resource :provider_info, only: :show
   end
 

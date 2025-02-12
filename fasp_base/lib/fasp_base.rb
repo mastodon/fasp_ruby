@@ -18,4 +18,10 @@ module FaspBase
     protocol = Rails.env.production? ? "https" : "http"
     "#{protocol}://#{domain}/fasp"
   end
+
+  def self.supports?(capability, version:)
+    capabilities.any? do |supported_capability|
+      supported_capability[:id] == capability && supported_capability[:version].start_with?(version.to_s)
+    end
+  end
 end
