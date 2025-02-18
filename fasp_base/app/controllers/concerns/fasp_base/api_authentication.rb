@@ -9,6 +9,8 @@ module FaspBase
       attr_reader :current_server
       helper_method :current_user
 
+      skip_forgery_protection
+
       before_action :require_authentication
 
       after_action :sign_response

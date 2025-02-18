@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_144206) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_142725) do
   create_table "accounts", force: :cascade do |t|
     t.string "uri", null: false
     t.string "object_type", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_144206) do
     t.string "fasp_remote_id"
     t.string "public_key_pem"
     t.string "registration_completion_uri"
+    t.json "enabled_capabilities"
     t.index ["base_url"], name: "index_fasp_base_servers_on_base_url", unique: true
     t.index ["user_id"], name: "index_fasp_base_servers_on_user_id"
   end
