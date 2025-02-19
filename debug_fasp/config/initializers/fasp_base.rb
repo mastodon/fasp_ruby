@@ -9,6 +9,7 @@ FaspBase.tap do |f|
   f.privacy_policy_language = ENV["PRIVACY_POLICY_LANGUAGE"]
   f.contact_email = ENV["CONTACT_EMAIL"]
   f.fediverse_account = ENV["FEDIVERSE_ACCOUNT"]
+  f.registration_enabled = ENV["DISABLE_SERVER_REGISTRATION"].present? ? false : true
 end
 
 Rails.application.config.to_prepare do

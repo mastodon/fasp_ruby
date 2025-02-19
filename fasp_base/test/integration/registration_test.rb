@@ -7,6 +7,26 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     stub_fasp_registration
   end
 
+  test "disabled registration" do
+    FaspBase.registration_enabled = false
+    get fasp_base.new_registration_path
+
+    assert_response :not_found
+
+    post fasp_base.registration_path, params: {
+      registration: {
+        email: "user@example.com",
+        password: "super_secret",
+        password_confirmation: "super_secret",
+        base_url: "https://fedi.example.com/fasp"
+      }
+    }
+
+    assert_response :not_found
+
+    FaspBase.registration_enabled = true
+  end
+
   test "requesting the registration form" do
     get fasp_base.new_registration_path
 

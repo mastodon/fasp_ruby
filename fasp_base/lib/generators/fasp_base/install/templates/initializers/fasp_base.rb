@@ -13,6 +13,9 @@ FaspBase.tap do |f|
   # f.privacy_policy_language = ENV["PRIVACY_POLICY_LANGUAGE"]
   # f.contact_email = ENV["CONTACT_EMAIL"]
   # f.fediverse_account = ENV["FEDIVERSE_ACCOUNT"]
+
+  # Disable open registration
+  # f.registration_enabled = false
 end
 
 # If you plan to patch classes from the `fasp_base` engine

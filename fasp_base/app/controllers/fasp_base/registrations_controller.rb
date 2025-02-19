@@ -2,6 +2,8 @@ module FaspBase
   class RegistrationsController < ApplicationController
     skip_authentication
 
+    before_action :registration_allowed
+
     def new
       @registration = Registration.new
     end
@@ -30,6 +32,10 @@ module FaspBase
     def registration_params
       params.require(:registration)
         .permit(:email, :base_url, :password, :password_confirmation)
+    end
+
+    def registration_allowed
+      head :not_found unless FaspBase.registration_enabled?
     end
   end
 end
