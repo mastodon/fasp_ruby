@@ -20,8 +20,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ./debug_fasp/.ruby-version
+          ruby-version: .ruby-version
           bundler-cache: true
+          working-directory: ./debug_fasp
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
@@ -37,8 +38,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ./debug_fasp/.ruby-version
+          ruby-version: .ruby-version
           bundler-cache: true
+          working-directory: ./debug_fasp
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -53,8 +55,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ./debug_fasp/.ruby-version
+          ruby-version: .ruby-version
           bundler-cache: true
+          working-directory: ./debug_fasp
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -79,8 +82,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ./debug_fasp/.ruby-version
+          ruby-version: .ruby-version
           bundler-cache: true
+          working-directory: ./debug_fasp
 
       - name: Run tests
         env:
