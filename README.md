@@ -34,6 +34,14 @@ rails new my_fasp -m https://raw.githubusercontent.com/mastodon/fasp_ruby/refs/h
 > Using tailwind is not strictly needed, but `fasp_base` will try to
 > install an application layout that expects it. You can simply decline
 > this step.
+> There are currently issues with tailwindcss that prevent the app from running
+> when generating from a template. As a work around you can run
+> `./bin/rails tailwindcss:install` and then delete the following lines from
+> `app/views/layouts/application.html.erb`
+> ```
+>   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+>   <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+> ```
 
 The application template will install the `fasp_base` engine that
 includes all the basics that are needed for every type of FASP. It will
