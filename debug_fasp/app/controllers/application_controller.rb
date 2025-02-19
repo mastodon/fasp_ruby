@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Currently ever user can only have one server but this will probably
+  # change soon.
   def current_server
     @current_server ||= current_user&.servers&.first
   end
