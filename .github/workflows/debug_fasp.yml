@@ -9,10 +9,6 @@ on:
     paths:
       - "debug_fasp/**"
 
-defaults:
-  run:
-    working-directory: ../debug_fasp
-
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
@@ -26,9 +22,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+        working-directory: ./debug_fasp
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
+        working-directory: ./debug_fasp
 
   scan_js:
     runs-on: ubuntu-latest
@@ -42,9 +40,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+        working-directory: ./debug_fasp
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
+        working-directory: ./debug_fasp
 
   lint:
     runs-on: ubuntu-latest
@@ -57,9 +57,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+        working-directory: ./debug_fasp
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
+        working-directory: ./debug_fasp
 
   test:
     runs-on: ubuntu-latest
@@ -82,12 +84,14 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+        working-directory: ./debug_fasp
 
       - name: Run tests
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
+        working-directory: ./debug_fasp
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
@@ -96,3 +100,4 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+        working-directory: ./debug_fasp
