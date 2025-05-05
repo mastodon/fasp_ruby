@@ -21,7 +21,7 @@ jobs:
         with:
           ruby-version: ruby-3.3.6
           bundler-cache: true
-          working-directory: ./debug_fasp
+          working-directory: ./fasp_base
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
