@@ -41,6 +41,10 @@ ask if it should also install the `fasp_data_sharing` engine. This is
 only needed for discovery FASP that want to implement the `data_sharing`
 capability.
 
+It will try to overwrite `app/views/layout/application.html.erb` and
+`app/assets/tailwind/application.css`. Confirm both unless you want to
+start from scratch with you own markup and possibly CSS.
+
 Once all the generators have finished this should leave you with a
 working rails application. Just run `bin/dev` and have a look at
 `http://localhost:3000`.

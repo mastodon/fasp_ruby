@@ -1,11 +1,11 @@
 module FaspBase
   module ApplicationHelper
-    ALERT_CLASSES = "mt-1 mb-2 rounded px-4 py-2 text-gray-600 font-medium"
+    ALERT_CLASSES = "mt-1 mb-2 rounded-sm px-4 py-2 text-gray-600 font-medium"
     ALERT_COLORS = {
       notice: "border-blue-400 bg-blue-50",
       alert: "border-red-400 bg-red-50"
     }.freeze
-    BUTTON_CLASSES = "font-bold rounded px-4 py-2"
+    BUTTON_CLASSES = "font-bold rounded-sm px-4 py-2"
 
     def notification(message, type: :notice)
       tag.div(message, class: "#{ALERT_CLASSES} #{ALERT_COLORS[type]}")
@@ -29,7 +29,7 @@ module FaspBase
     end
 
     def nav_link_to(*args, **kwargs)
-      link_to(*args, **(kwargs.merge(class: "text-gray-600 font-medium px-2 py-1 rounded hover:bg-blue-200 hover:text-gray-700")))
+      link_to(*args, **(kwargs.merge(class: "text-gray-600 font-medium px-2 py-1 rounded-sm hover:bg-blue-200 hover:text-gray-700")))
     end
 
     def button(type: :button, &block)

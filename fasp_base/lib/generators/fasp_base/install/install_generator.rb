@@ -11,6 +11,7 @@ class FaspBase::InstallGenerator < Rails::Generators::Base
     copy_file "initializers/fasp_base.rb", "config/initializers/fasp_base.rb"
     copy_file "config/tailwind.config.js", "config/tailwind.config.js"
     copy_file "layouts/application.html.erb", "app/views/layouts/application.html.erb"
+    copy_file "tailwind/application.css", "app/assets/tailwind/application.css"
 
     inject_into_class "app/controllers/application_controller.rb", "ApplicationController" do
       "  include FaspBase::Authentication\n\n"
