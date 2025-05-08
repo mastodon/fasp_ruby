@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_142725) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_08_094860) do
   create_table "accounts", force: :cascade do |t|
     t.string "uri", null: false
     t.string "object_type", null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_142725) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uri"], name: "index_contents_on_uri", unique: true
+  end
+
+  create_table "fasp_base_admin_users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_fasp_base_admin_users_on_email", unique: true
   end
 
   create_table "fasp_base_servers", force: :cascade do |t|
@@ -48,6 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_142725) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active", default: true, null: false
     t.index ["email"], name: "index_fasp_base_users_on_email", unique: true
   end
 

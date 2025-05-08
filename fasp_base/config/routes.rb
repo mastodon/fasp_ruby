@@ -1,4 +1,12 @@
 FaspBase::Engine.routes.draw do
+  namespace :admin do
+    resource :session, only: [ :new, :create, :destroy ]
+
+    resources :users, only: [ :index, :show ] do
+      resource :activation, only: [ :create, :destroy ]
+    end
+  end
+
   namespace :fasp do
     resources :capabilities, only: [] do
       resource :activation, path: "/:version/activation", only: [ :create, :destroy ]

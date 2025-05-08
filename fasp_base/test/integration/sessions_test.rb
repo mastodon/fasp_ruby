@@ -19,6 +19,12 @@ class SessionsTest < ActionDispatch::IntegrationTest
     assert_redirected_to fasp_base.new_session_path
   end
 
+  test "trying to sing in a deactivated user leads back to sign in form" do
+    post fasp_base.session_path, params: { email: "inactive@example.com", password: "super_secret" }
+
+    assert_redirected_to fasp_base.new_session_path
+  end
+
   test "successful sign in leads to home" do
     post fasp_base.session_path, params: { email: "fediadmin@example.com", password: "super_secret" }
 

@@ -1,0 +1,38 @@
+<%= page_header do %>
+  <%= t(".users") %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= FaspBase::User.human_attribute_name(:email) %></th>
+      <th><%= FaspBase::Server.human_attribute_name(:base_url) %></th>
+      <th><%= FaspBase::User.human_attribute_name(:active) %></th>
+      <th><%= FaspBase::User.human_attribute_name(:created_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="even:bg-blue-50">
+        <%= td do %><%= user.email %><% end %>
+        <%= td do %>
+          <ul>
+          <% user.servers.each do |server| %>
+            <li><%= server.base_url %></li>
+          <% end %>
+          </ul>
+        <% end %>
+        <%= td do %><% if user.active? %>&check;<% end %><% end %>
+        <%= td do %><%= user.created_at %><% end %>
+        <%= td do %>
+          <% if user.active? %>
+            <%= action_link_to t(".deactivate"), fasp_base.admin_user_activation_path(user), data: {turbo_method: :delete} %>
+          <% else %>
+            <%= action_link_to t(".activate"), fasp_base.admin_user_activation_path(user), data: {turbo_method: :post} %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

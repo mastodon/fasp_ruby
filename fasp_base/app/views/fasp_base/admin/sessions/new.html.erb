@@ -1,0 +1,19 @@
+<%= page_header do %>
+  <%=t ".log_in" %>
+<% end %>
+
+<%= form_with url: fasp_base.admin_session_path do |form| %>
+  <div class="flex flex-col">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true, autofocus: true %>
+
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div class="my-4">
+    <%= button type: :submit do %>
+      <%= t(".log_in") %>
+    <% end %>
+  </div>
+<% end %>

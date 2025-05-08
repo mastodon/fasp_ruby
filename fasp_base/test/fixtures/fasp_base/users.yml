@@ -6,3 +6,7 @@ fedi_admin:
 mastodon_admin:
   email: mastodon_admin@example.com
   password_digest: <%= BCrypt::Password.create('super_secret')  %>
+inactive_admin:
+  email: inactive@example.com
+  password_digest: <%= BCrypt::Password.create('super_secret')  %>
+  active: false
