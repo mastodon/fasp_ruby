@@ -1,0 +1,25 @@
+<%= page_header do %>
+  <%= t(".settings") %>
+<% end %>
+
+<div>
+  <h2 class="text-lg font-bold"><%= t(".registration") %></h2>
+  <p><%= t(".registration_hint") %></p>
+
+  <div class="mt-4 w-fit border border-blue-400 rounded-sm flex gap-0">
+    <% FaspBase::Setting::OPTIONS[:registration].each do |option| %>
+      <% if @registration.value == option %>
+        <div class="font-bold bg-blue-50 p-4">
+          <%= t(option, scope: ".registration") %>
+        </div>
+      <% else %>
+        <%= form_with model: [:admin, @registration] do |f| %>
+          <%= f.hidden_field :value, value: option %>
+          <%= f.button type: :submit, class: "p-4 hover:bg-blue-50" do %>
+            <%= t(option, scope: ".registration") %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

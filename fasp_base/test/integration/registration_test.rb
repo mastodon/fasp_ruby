@@ -8,7 +8,8 @@ class RegistrationTest < ActionDispatch::IntegrationTest
   end
 
   test "disabled registration" do
-    FaspBase.registration_enabled = false
+    fasp_base_settings(:registration).update!(value: "closed")
+
     get fasp_base.new_registration_path
 
     assert_response :not_found
@@ -23,8 +24,6 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :not_found
-
-    FaspBase.registration_enabled = true
   end
 
   test "requesting the registration form" do
@@ -68,5 +67,47 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+  end
+
+  test "registration without invitiation code if required" do
+    fasp_base_settings(:registration).update!(value: "invite_only")
+
+    assert_no_difference [ -> { FaspBase::User.count }, -> { FaspBase::Server.count } ] do
+      post fasp_base.registration_path,
+        params: {
+          registration: {
+            email: "user@example.com",
+            password: "super_secret",
+            password_confirmation: "super_secret",
+            base_url: "https://fedi.example.com/fasp"
+          }
+        }
+    end
+
+    assert_response :success
+  end
+
+  test "registration with valid invitation code" do
+    fasp_base_settings(:registration).update!(value: "invite_only")
+
+    assert_difference [ -> { FaspBase::User.count }, -> { FaspBase::Server.count } ], 1 do
+      post fasp_base.registration_path,
+        params: {
+          registration: {
+            email: "user@example.com",
+            password: "super_secret",
+            password_confirmation: "super_secret",
+            base_url: "https://fedi.example.com/fasp",
+            invitation_code: "abcdefg"
+          }
+        }
+    end
+
+    new_user = FaspBase::User.last
+    new_server = new_user.servers.first
+
+    assert_redirected_to fasp_base.server_path(new_server)
+    assert_equal "user@example.com", new_user.email
+    assert_equal "https://fedi.example.com/fasp", new_server.base_url
   end
 end

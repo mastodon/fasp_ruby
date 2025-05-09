@@ -68,4 +68,12 @@ module FaspBase::IntegrationTestHelper
   def content_digest(content)
     "sha-256=:#{OpenSSL::Digest.base64digest("sha256", content)}:"
   end
+
+  def sign_in(user)
+    post fasp_base.session_path, params: { email: user.email, password: "super_secret" }
+  end
+
+  def sign_in_admin(admin_user)
+    post fasp_base.admin_session_path, params: { email: admin_user.email, password: "super_secret" }
+  end
 end

@@ -21,7 +21,12 @@
     <%= form.password_field :password_confirmation, required: true %>
 
     <%= form.label :base_url %>
-    <%= form.url_field :base_url %>
+    <%= form.url_field :base_url, required: true %>
+
+    <% if registration_invite_only? %>
+      <%= form.label :invitation_code %>
+      <%= form.url_field :invitation_code, required: true %>
+    <% end %>
   </div>
 
   <div class="my-4">

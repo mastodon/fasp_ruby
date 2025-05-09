@@ -54,6 +54,14 @@ module FaspBase
       tag.div safe_join(rendered_tabs), class: "flex gap-2 my-4 border-b border-blue-100"
     end
 
+    def registration_enabled?
+      !FaspBase::Setting.get("registration").closed?
+    end
+
+    def registration_invite_only?
+      FaspBase::Setting.get("registration").invite_only?
+    end
+
     private
 
     def delete_action?(options)

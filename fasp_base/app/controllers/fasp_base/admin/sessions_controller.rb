@@ -19,7 +19,7 @@ module FaspBase
     def destroy
       reset_session
 
-      redirect_to fasp_base.admin_new_session_path,
+      redirect_to fasp_base.new_admin_session_path,
         notice: t(".success")
     end
   end

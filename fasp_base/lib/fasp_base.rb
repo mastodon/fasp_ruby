@@ -13,7 +13,6 @@ module FaspBase
   mattr_accessor :capabilities, default: []
   mattr_accessor :contact_email
   mattr_accessor :fediverse_account
-  mattr_accessor :registration_enabled, default: true
 
   def self.base_url
     protocol = Rails.env.production? ? "https" : "http"
@@ -25,6 +24,4 @@ module FaspBase
       supported_capability[:id] == capability && supported_capability[:version].start_with?(version.to_s)
     end
   end
-
-  def self.registration_enabled? = registration_enabled
 end

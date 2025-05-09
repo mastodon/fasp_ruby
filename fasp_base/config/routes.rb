@@ -2,6 +2,10 @@ FaspBase::Engine.routes.draw do
   namespace :admin do
     resource :session, only: [ :new, :create, :destroy ]
 
+    resources :invitation_codes, only: [ :index, :create, :destroy ]
+
+    resources :settings, only: [ :index, :update ]
+
     resources :users, only: [ :index, :show ] do
       resource :activation, only: [ :create, :destroy ]
     end

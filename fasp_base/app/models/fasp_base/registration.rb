@@ -9,6 +9,7 @@ module FaspBase
     attribute :base_url, :string
     attribute :password, :string
     attribute :password_confirmation, :string
+    attribute :invitation_code, :string
 
     # TODO: Better email validation
     validates :email,
@@ -21,6 +22,11 @@ module FaspBase
       presence: true,
       confirmation: true,
       length: { minimum: 8 }
+    validates :invitation_code,
+      inclusion: {
+        in: -> { InvitationCode.pluck(:code) },
+        if: -> { Setting.get("registration").invite_only? }
+      }
 
     def save!
       validate!

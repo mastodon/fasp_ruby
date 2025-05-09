@@ -1,0 +1,28 @@
+<div class="flex justify-between items-center">
+  <%= page_header do %>
+    <%= t(".invitation_codes") %>
+  <% end %>
+
+  <%= button_link_to t(".add"), fasp_base.admin_invitation_codes_path, data: {turbo_method: :post} %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= FaspBase::InvitationCode.human_attribute_name(:code) %></th>
+      <th><%= FaspBase::InvitationCode.human_attribute_name(:created_at) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invitation_codes.each do |invitation_code| %>
+      <tr class="even:bg-blue-50">
+        <%= td do %><%= invitation_code.code %><% end %>
+        <%= td do %><%= invitation_code.created_at %><% end %>
+        <%= td do %>
+          <%= action_link_to t(".delete"), fasp_base.admin_invitation_code_path(invitation_code), data: {turbo_method: :delete} %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
