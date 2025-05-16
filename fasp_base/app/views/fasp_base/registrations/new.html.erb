@@ -25,7 +25,7 @@
 
     <% if registration_invite_only? %>
       <%= form.label :invitation_code %>
-      <%= form.url_field :invitation_code, required: true %>
+      <%= form.text_field :invitation_code, required: true %>
     <% end %>
   </div>
 
