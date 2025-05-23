@@ -3,21 +3,29 @@ module FaspBase::IntegrationTestHelper
 
   def request_authentication_headers(server, verb, uri, params)
     params = encode_body(params)
-    headers = {}
-    headers["content-digest"] = content_digest(params)
-    request = Linzer.new_request(verb, uri, {}, headers)
+    headers = { "content-digest" => content_digest(params) }
+    request = HTTPX.with(headers:).build_request(verb, uri)
     key = private_key_for(server)
-    signature = sign(request, key, %w[@method @target-uri content-digest])
-    headers.merge(signature.to_h)
+    Linzer.sign!(request, key:, components: %w[@method @target-uri content-digest])
+    signature_headers(request)
   end
 
   def response_authentication_headers(server, status, body)
-    headers = {}
-    headers["content-digest"] = content_digest(body)
-    response = Linzer.new_response(body, status, headers)
+    fake_request = HTTPX.with(headers: {}).build_request(:get, "https://")
+    headers = { "content-digest" => content_digest(body) }
+    response = HTTPX::Response.new(fake_request, status, "1.1", headers)
     key = private_key_for(server)
-    signature = sign(response, key, %w[@status content-digest])
-    headers.merge(signature.to_h)
+    Linzer.sign!(response, key:, components: %w[@status content-digest])
+    signature_headers(response)
+  end
+
+  def signature_headers(operation)
+    headers = operation.headers
+    {
+      'content-digest' => headers['content-digest'],
+      'signature-input' => headers['signature-input'],
+      'signature' => headers['signature'],
+    }
   end
 
   def stub_request_to(server, method, path, response_status, response_body = "")
@@ -45,17 +53,7 @@ module FaspBase::IntegrationTestHelper
         key
       end
 
-    {
-      id: server.id.to_s,
-      private_key: @cached_server_keys[server].private_to_pem
-    }
-  end
-
-  def sign(request_or_response, key, components)
-    message = Linzer::Message.new(request_or_response)
-    linzer_key = Linzer.new_ed25519_key(key[:private_key], key[:id])
-    signature = Linzer.sign(linzer_key, message, components)
-    signature
+    Linzer.new_ed25519_key(@cached_server_keys[server].private_to_pem, server.id.to_s)
   end
 
   def encode_body(body)

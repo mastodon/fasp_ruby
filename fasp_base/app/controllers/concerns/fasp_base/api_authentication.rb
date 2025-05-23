@@ -29,7 +29,7 @@ module FaspBase
     def require_authentication
       validate_content_digest!
       validate_signature!
-    rescue Error, Linzer::Error, ActiveRecord::RecordNotFound => e
+    rescue Error, ::Linzer::VerifyError, ActiveRecord::RecordNotFound => e
       logger.debug("Authentication error: #{e}")
       authentication_error
     end
@@ -52,37 +52,23 @@ module FaspBase
     end
 
     def validate_signature!
-      signature_input = request.headers["signature-input"]&.encode("UTF-8")
-      raise Error, "signature-input is missing" if signature_input.blank?
+      raise Error, "signature-input is missing" if request.headers["signature-input"].blank?
 
-      keyid = signature_input.match(KEYID_PATTERN)[1]
-      server = Server.find(keyid)
-      linzer_request = Linzer.new_request(
-        request.method,
-        request.original_url,
-        {},
-        {
-          "content-digest" => request.headers["content-digest"],
-          "signature-input" => signature_input,
-          "signature" => request.headers["signature"]
-        }
-      )
-      message = Linzer::Message.new(linzer_request)
-      key = Linzer.new_ed25519_public_key(server.public_key_pem, keyid)
-      signature = Linzer::Signature.build(message.headers)
-      Linzer.verify(key, message, signature)
+      server = nil
+
+      ::Linzer.verify!(request.rack_request, no_older_than: 300) do |keyid|
+        server = Server.find(keyid)
+        ::Linzer.new_ed25519_public_key(server.public_key_pem, keyid)
+      end
+
       @current_server = server
     end
 
     def sign_response
       response.headers["content-digest"] = "sha-256=:#{OpenSSL::Digest.base64digest("sha256", response.body || "")}:"
 
-      linzer_response = Linzer.new_response(response.body, response.status, { "content-digest" => response.headers["content-digest"] })
-      message = Linzer::Message.new(linzer_response)
-      key = Linzer.new_ed25519_key(current_server.fasp_private_key_pem)
-      signature = Linzer.sign(key, message, %w[@status content-digest])
-
-      response.headers.merge!(signature.to_h)
+      key = ::Linzer.new_ed25519_key(current_server.fasp_private_key_pem)
+      ::Linzer.sign!(response, key:, components: %w[@status content-digest])
     end
   end
 end

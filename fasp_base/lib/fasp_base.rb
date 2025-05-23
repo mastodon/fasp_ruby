@@ -1,6 +1,9 @@
 require "fasp_base/version"
 require "fasp_base/engine"
 require "fasp_base/integration_test_helper"
+require "fasp_base/linzer/adapter/action_dispatch/response"
+require "fasp_base/linzer/adapter/httpx/request"
+require "fasp_base/linzer/adapter/httpx/response"
 require "fasp_base/request"
 
 module FaspBase

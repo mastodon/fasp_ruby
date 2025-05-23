@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", ">= 8.0.0"
   spec.add_dependency "bcrypt"
   spec.add_dependency "httpx"
-  spec.add_dependency "linzer"
+  spec.add_dependency "linzer", ">= 0.7.2"
   spec.add_dependency "openssl"
 
   spec.add_development_dependency "webmock"

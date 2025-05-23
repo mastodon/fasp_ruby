@@ -17,25 +17,20 @@ class FaspDataSharing::ActivityPubObject
   private
 
   def message_signature_request
-    HTTPX.with(headers: message_signature_headers).get(uri)
+    base_headers = {
+      "accept" => "application/activity+json",
+      "content-digest" => "sha-256=:#{EMPTY_DIGEST}:"
+    }
+    key = Linzer.new_rsa_pss_sha512_key(private_key_pem, keyid)
+    session = HTTPX.with(headers: base_headers)
+    request = session.build_request(:get, uri)
+    Linzer.sign!(request, key:, components: %w[@method @target-uri content-digest])
+    session.request(request)
   end
 
   # Forces HTTP 1.1 because http/2 does not allow the `Host` header we sign
   def signature_request
     HTTPX.with(ssl: { alpn_protocols: %w[http/1.1] }, headers: signature_headers).get(uri)
-  end
-
-  def message_signature_headers
-    base_headers = {
-      "accept" => "application/activity+json",
-      "content-digest" => "sha-256=:#{EMPTY_DIGEST}:"
-    }
-
-    linzer_request = Linzer.new_request("GET", uri, {}, base_headers)
-    message = Linzer::Message.new(linzer_request)
-    key = Linzer.new_rsa_pss_sha512_key(private_key_pem, keyid)
-    signature = Linzer.sign(key, message, %w[@method @target-uri content-digest])
-    base_headers.merge(signature.to_h)
   end
 
   def signature_headers
