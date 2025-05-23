@@ -22,9 +22,9 @@ module FaspBase::IntegrationTestHelper
   def signature_headers(operation)
     headers = operation.headers
     {
-      'content-digest' => headers['content-digest'],
-      'signature-input' => headers['signature-input'],
-      'signature' => headers['signature'],
+      "content-digest" => headers["content-digest"],
+      "signature-input" => headers["signature-input"],
+      "signature" => headers["signature"]
     }
   end
 

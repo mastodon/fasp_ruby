@@ -17,7 +17,7 @@ module FaspBase
 
           # Incomplete, but sufficient for FASP
           def [](field_name)
-            return @operation.status if field_name == '@status'
+            return @operation.status if field_name == "@status"
 
             @operation.headers[field_name]
           end
