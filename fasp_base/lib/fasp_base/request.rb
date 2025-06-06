@@ -11,7 +11,7 @@ class FaspBase::Request
     perform_request(:post, path, body:)
   end
 
-  def delete(pathl)
+  def delete(path)
     perform_request(:delete, path)
   end
 
