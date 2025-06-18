@@ -1,0 +1,14 @@
+---
+en:
+  activerecord:
+    attributes:
+      fasp_data_sharing/backfill_request:
+        category: Category
+        created_at: Created at
+        fasp_base_server: Server
+        fulfilled: Fulfilled
+      fasp_data_sharing/subscription:
+        category: Category
+        created_at: Created at
+        fasp_base_server: Server
+        subscription_type: Type

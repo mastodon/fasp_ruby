@@ -1,0 +1,67 @@
+---
+en:
+  activerecord:
+    attributes:
+      fasp_base/invitation_code:
+        code: Code
+      fasp_base/user:
+        active: Active
+        base_url: Base URL
+        created_at: Created at
+        email: Email
+  fasp_base:
+    admin:
+      activations:
+        create:
+          success: User was activated successfully.
+        destroy:
+          success: User was deactivated successfully.
+      invitation_codes:
+        create:
+          success: A new invitation code was added successfully.
+        destroy:
+          success: The invitation code was deleted successfully.
+        index:
+          add: Add a new invitation code
+          delete: Delete
+          invitation_codes: Invitation Codes
+      sessions:
+        create:
+          failure: Sign In failed, please check your email and/or password.
+        destroy:
+          success: Signed in successfully. Welcome!
+        new:
+          log_in: Sign In
+      settings:
+        index:
+          registration: Registration
+          registration_hint: "`Open`: Everyone can register, `Closed`: No one can
+            register, `Invite Only`: Server admins need an invitation code to register."
+          settings: Settings
+        update:
+          success: Settings were saved successfully.
+      users:
+        index:
+          activate: Activate
+          deactivate: Deactivate
+          users: Users
+    registrations:
+      new:
+        sign_up: Sign Up
+    servers:
+      show:
+        finish_registration_instructions: Click the button below to open the administration
+          interface of your server to finish up the registration there. Take note
+          of the following key fingerprint and make sure to compare it with what your
+          server will present to you.
+        finish_setup_link: Finish setup on your server
+        key_fingerprint: Key fingerprint
+        registration_successful: Your server is now registered with this provider.
+          Thank you for signing up.
+    sessions:
+      create:
+        failure: Sign In failed, please check your email and/or password.
+      destroy:
+        success: You were signed out successfully.
+      new:
+        log_in: Sign In
