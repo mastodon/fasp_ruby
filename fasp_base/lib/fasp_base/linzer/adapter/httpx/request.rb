@@ -2,7 +2,7 @@ module FaspBase
   module Linzer
     module Adapter
       module HTTPX
-        class Request < ::Linzer::Message::Adapter::Abstract
+        class Request < ::Linzer::Message::Adapter::Generic::Request
           def initialize(operation, **options)
             @operation = operation
           end
@@ -20,14 +20,14 @@ module FaspBase
 
           def derived(name)
             case name.value
-            when :method           then @operation.verb
-            when :"target-uri"     then @operation.uri.to_s
-            when :authority        then @operation.authority
-            when :scheme           then @operation.scheme
-            when :"request-target" then @operation.uri.request_uri
-            when :path             then @operation.path
-            when :query            then "?%s" % String(@operation.query)
-            when :"query-param"    then query_param(name)
+            when "@method"         then @operation.verb
+            when "@target-uri"     then @operation.uri.to_s
+            when "@authority"      then @operation.authority
+            when "@scheme"         then @operation.scheme
+            when "@request-target" then @operation.uri.request_uri
+            when "@path"           then @operation.path
+            when "@query"          then "?%s" % String(@operation.query)
+            when "@query-param"    then query_param(name)
             end
           end
 

@@ -2,7 +2,7 @@ module FaspBase
   module Linzer
     module Adapter
       module HTTPX
-        class Response < ::Linzer::Message::Adapter::Abstract
+        class Response < ::Linzer::Message::Adapter::Generic::Response
           def initialize(operation, **options)
             @operation = operation
           end
@@ -16,9 +16,18 @@ module FaspBase
             @operation
           end
 
-          def [](field_name)
-            return @operation.status if field_name == "@status"
-            @operation.headers[field_name]
+          private
+
+          def derived(name)
+            @operation.status if name.value == "@status"
+          end
+
+          def field(name)
+            has_tr = name.parameters["tr"]
+            return nil if has_tr
+
+            value = @operation.headers[name.value.to_s]
+            value.dup&.strip
           end
         end
       end
