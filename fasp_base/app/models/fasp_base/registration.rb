@@ -15,9 +15,9 @@ module FaspBase
     validates :email,
       presence: true,
       format: { with: /@/ }
-    # TODO: Proper URL validation
     validates :base_url,
-      presence: true
+      presence: true,
+      "fasp_base/uri": { if: -> { Rails.env.production? } }
     validates :password,
       presence: true,
       confirmation: true,
