@@ -21,7 +21,7 @@ class FaspBase::Request
     url = @server.url(path)
     body = body.present? ? body.to_json : ""
     key = Linzer.new_ed25519_key(@server.fasp_private_key_pem, @server.fasp_remote_id)
-    session = HTTPX.with(headers: headers(body))
+    session = HTTPX.with(headers: headers(body), timeout: { connection_timeout: 5, request_timeout: 10 })
     request = session.build_request(verb, url, body:)
     ::Linzer.sign!(request, key:, components: %w[@method @target-uri content-digest])
     response = session.request(request)
