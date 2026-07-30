@@ -1,4 +1,6 @@
 class FaspBase::Request
+  HTTPX = ::HTTPX.plugin(:ssrf_filter)
+
   def initialize(server)
     @server = server
   end
