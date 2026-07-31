@@ -4,7 +4,6 @@ require "fasp_base/integration_test_helper"
 require "fasp_base/linzer/adapter/action_dispatch/response"
 require "fasp_base/linzer/adapter/httpx/request"
 require "fasp_base/linzer/adapter/httpx/response"
-require "fasp_base/request"
 
 module FaspBase
   class Error < ::StandardError ; end
