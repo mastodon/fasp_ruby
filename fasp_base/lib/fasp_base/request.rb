@@ -1,5 +1,5 @@
 class FaspBase::Request
-  HTTPX = ::HTTPX.plugin(:ssrf_filter)
+  HTTPX = ::HTTPX.plugin(:ssrf_filter) unless Rails.env.development?
 
   def initialize(server)
     @server = server
