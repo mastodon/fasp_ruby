@@ -332,6 +332,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  addressable
   debug (>= 1.0.0)
   fasp_base!
   fasp_data_sharing!
