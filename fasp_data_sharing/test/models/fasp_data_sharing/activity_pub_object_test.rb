@@ -50,7 +50,7 @@ module FaspDataSharing
         "id" => uri
       }
       activity_pub_object = ActivityPubObject.new(uri: uri)
-      message_signatures_stub = stub_request(:get, @uri)
+      message_signatures_stub = stub_request(:get, uri)
         .with { |r| r.headers["Signature-Input"].present? }
         .to_return_json(
           body: json_object,
