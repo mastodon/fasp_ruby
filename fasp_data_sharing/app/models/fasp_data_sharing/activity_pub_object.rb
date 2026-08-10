@@ -52,7 +52,7 @@ class FaspDataSharing::ActivityPubObject
   end
 
   def sign(headers)
-    parsed_uri = Addressable::URI.parse(uri).normalize
+    parsed_uri = URI(uri)
     target = parsed_uri.path
     target << "?#{parsed_uri.query}" unless parsed_uri.query.nil?
     string = [
