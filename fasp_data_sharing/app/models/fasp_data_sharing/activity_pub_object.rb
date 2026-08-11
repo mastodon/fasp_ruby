@@ -40,7 +40,7 @@ class FaspDataSharing::ActivityPubObject
       "accept" => "application/activity+json",
       "digest" => "SHA-256=#{EMPTY_DIGEST}",
       "date" => Time.now.utc.httpdate,
-      "host" => URI(uri).host
+      "host" => parsed_uri.host
     }
     signature_header = [
       "keyId=\"#{keyid}\"",
@@ -52,11 +52,8 @@ class FaspDataSharing::ActivityPubObject
   end
 
   def sign(headers)
-    parsed_uri = URI(uri)
-    target = parsed_uri.path
-    target << "?#{parsed_uri.query}" unless parsed_uri.query.nil?
     string = [
-      "(request-target): get #{target}",
+      "(request-target): get #{parsed_uri.request_uri}",
       "date: #{headers["date"]}",
       "digest: #{headers["digest"]}",
       "host: #{headers["host"]}"
@@ -71,5 +68,9 @@ class FaspDataSharing::ActivityPubObject
 
   def private_key_pem
     @private_key_pem ||= FaspDataSharing::Actor.instance.private_key_pem
+  end
+
+  def parsed_uri
+    @parsed_uri ||= Addressable::URI.parse(uri)
   end
 end

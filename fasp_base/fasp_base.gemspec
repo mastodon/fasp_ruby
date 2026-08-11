@@ -22,6 +22,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "httpx"
   spec.add_dependency "linzer", ">= 0.7.7"
   spec.add_dependency "openssl"
+  spec.add_dependency "addressable"
+  spec.add_dependency "idnx"
 
   spec.add_development_dependency "webmock"
 end

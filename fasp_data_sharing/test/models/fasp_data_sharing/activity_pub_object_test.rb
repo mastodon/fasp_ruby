@@ -42,5 +42,24 @@ module FaspDataSharing
       assert_requested(message_signatures_stub)
       assert_requested(signatures_stub)
     end
+
+    test "when URI contains non-ASCII characters it gets parsed and processed successfully" do
+      uri = "http://www.詹姆斯.com/users/\u4F11\u65E5\u8AB2\u9577"
+      json_object = {
+        "@context" => "https://www.w3.org/ns/activitystreams",
+        "id" => uri
+      }
+      activity_pub_object = ActivityPubObject.new(uri: uri)
+      message_signatures_stub = stub_request(:get, "http://www.xn--8ws00zhy3a.com/users/%E4%BC%91%E6%97%A5%E8%AA%B2%E9%95%B7")
+        .with { |r| r.headers["Signature-Input"].present? }
+        .to_return_json(
+          body: json_object,
+          headers: { "content-type" => "application/activity+json"
+        })
+
+      returned_json = activity_pub_object.fetch
+      assert_equal json_object, returned_json
+      assert_requested(message_signatures_stub)
+    end
   end
 end
