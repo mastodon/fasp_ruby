@@ -28,9 +28,9 @@ class SessionsTest < ActionDispatch::IntegrationTest
   test "successful sign in leads to home" do
     post fasp_base.session_path, params: { email: "fediadmin@example.com", password: "super_secret" }
 
-    assert_redirected_to fasp_base.home_path
+    assert_redirected_to '/'
 
-    get fasp_base.home_path
+    get '/'
 
     assert_response :success
   end
