@@ -9,7 +9,7 @@ module FaspBase
       if user = User.authenticate_by(auth_attributes)
         self.current_user = user
 
-        redirect_to fasp_base.home_path
+        redirect_to main_app.root_path
       else
         redirect_to fasp_base.new_session_path,
           alert: t(".failure")
