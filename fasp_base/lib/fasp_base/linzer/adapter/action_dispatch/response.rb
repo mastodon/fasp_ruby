@@ -13,5 +13,3 @@ module FaspBase
     end
   end
 end
-
-Linzer::Message.register_adapter(ActionDispatch::Response, FaspBase::Linzer::Adapter::ActionDispatch::Response)
