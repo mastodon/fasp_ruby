@@ -34,5 +34,3 @@ module FaspBase
     end
   end
 end
-
-Linzer::Message.register_adapter(HTTPX::Response, FaspBase::Linzer::Adapter::HTTPX::Response)
