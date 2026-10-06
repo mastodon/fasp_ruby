@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_08_125745) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_06_132217) do
   create_table "fasp_base_admin_users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest"
