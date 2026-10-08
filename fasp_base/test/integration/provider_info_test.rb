@@ -40,7 +40,7 @@ class ProviderInfoTest < ActionDispatch::IntegrationTest
         "language" => nil
       } ],
       "capabilities" => [],
-      "signInUrl" => "http://www.example.com/fasp_base/session/new",
+      "signInUrl" => "http://www.example.com/session/new",
       "contactEmail" => nil,
       "fediverseAccount" => nil
     }
