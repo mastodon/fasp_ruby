@@ -26,3 +26,7 @@ FaspBase::Engine.routes.draw do
 
   resources :servers, only: [ :show ]
 end
+
+Rails.application.routes.draw do
+  get "/.well-known/host-meta.json", to: "fasp_base/host_meta#show"
+end
