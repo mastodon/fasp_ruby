@@ -35,7 +35,8 @@ module FaspBase
     end
 
     def registration_allowed
-      head :not_found if FaspBase::Setting.get("registration").closed?
+      registration = FaspBase::Setting.get("registration")
+      head :not_found if registration.closed? || registration.automatic?
     end
   end
 end
