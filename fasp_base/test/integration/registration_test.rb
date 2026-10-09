@@ -1,12 +1,6 @@
 require "test_helper"
 
 class RegistrationTest < ActionDispatch::IntegrationTest
-  include StubbedRequests
-
-  setup do
-    stub_fasp_registration
-  end
-
   test "closed registration" do
     disabled_registration("closed")
   end
