@@ -1,9 +1,9 @@
 require "test_helper"
 
 module FaspBase
-  class RegistrationTest < ::ActiveSupport::TestCase
+  class ManualRegistrationTest < ::ActiveSupport::TestCase
     test "#save! creates user and server" do
-      registration = Registration.new(
+      registration = ManualRegistration.new(
         email: "admin@fedi.example.com",
         base_url: "https://fedi.example.com/fasp",
         password: "super_secret",

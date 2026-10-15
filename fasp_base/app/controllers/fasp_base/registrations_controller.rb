@@ -5,11 +5,11 @@ module FaspBase
     before_action :registration_allowed
 
     def new
-      @registration = Registration.new
+      @registration = ManualRegistration.new
     end
 
     def create
-      @registration = Registration.new(registration_params)
+      @registration = ManualRegistration.new(registration_params)
 
       if @registration.valid?
         @registration.save!
