@@ -1,5 +1,5 @@
 module FaspBase
-  class Registration
+  class ManualRegistration
     include ActiveModel::Model
     include ActiveModel::Attributes
 
