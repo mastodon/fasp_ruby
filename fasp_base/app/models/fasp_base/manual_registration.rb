@@ -1,5 +1,5 @@
 module FaspBase
-  class Registration
+  class ManualRegistration
     include ActiveModel::Model
     include ActiveModel::Attributes
 
@@ -34,47 +34,7 @@ module FaspBase
       User.transaction do
         @user = User.create!(email:, password:)
         @server = Server.create!(user:, base_url:)
-        finish_registration
       end
-    end
-
-    private
-
-    def finish_registration
-      response = make_registration_request
-
-      response.raise_for_status
-
-      handle_response(response)
-    end
-
-    def make_registration_request
-      HTTPX
-        .post(
-          @server.url("/registration"),
-          json: {
-            name: FaspBase.fasp_name,
-            baseUrl: FaspBase.base_url,
-            serverId: @server.id.to_s,
-            publicKey: @server.fasp_public_key_base64
-          }
-        )
-    end
-
-    def handle_response(response)
-      json = response.json
-      @server.update!(
-        fasp_remote_id: json["faspId"],
-        public_key_pem: base64_to_pem(json["publicKey"]),
-        registration_completion_uri: json["registrationCompletionUri"]
-      )
-    end
-
-    def base64_to_pem(key)
-      OpenSSL::PKey.new_raw_public_key(
-        "ed25519",
-        Base64.strict_decode64(key)
-      ).public_to_pem
     end
   end
 end

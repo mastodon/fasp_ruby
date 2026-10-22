@@ -1,7 +1,7 @@
 module FaspBase
   class Setting < ApplicationRecord
     OPTIONS = {
-      registration: %w[open closed invite_only].freeze
+      registration: %w[automatic closed invite_only manual].freeze
     }.freeze
 
     def self.get(name)

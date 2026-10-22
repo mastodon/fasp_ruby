@@ -16,6 +16,7 @@ FaspBase::Engine.routes.draw do
       resource :activation, path: "/:version/activation", only: [ :create, :destroy ]
     end
     resource :provider_info, only: :show
+    resource :registration, only: :create
   end
 
   resource :home, only: [ :show ]
@@ -25,4 +26,8 @@ FaspBase::Engine.routes.draw do
   resource :session, only: [ :new, :create, :destroy ]
 
   resources :servers, only: [ :show ]
+end
+
+Rails.application.routes.draw do
+  get "/.well-known/host-meta.json", to: "fasp_base/host_meta#show"
 end
