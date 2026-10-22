@@ -16,6 +16,7 @@ FaspBase::Engine.routes.draw do
       resource :activation, path: "/:version/activation", only: [ :create, :destroy ]
     end
     resource :provider_info, only: :show
+    resource :registration, only: :create
   end
 
   resource :home, only: [ :show ]

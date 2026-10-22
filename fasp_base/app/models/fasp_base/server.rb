@@ -1,8 +1,13 @@
 module FaspBase
   class Server < ApplicationRecord
-    belongs_to :user
+    belongs_to :user, optional: true
+
+    validates :base_url, presence: true,
+      uniqueness: true
 
     before_create :create_keypair
+
+    scope :registration_unfinished, -> { where(fasp_remote_id: nil) }
 
     def public_key
       @public_key ||= OpenSSL::PKey.read(public_key_pem)
