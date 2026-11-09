@@ -19,7 +19,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ruby-3.3.6
+          ruby-version: ruby-4.0.9
           bundler-cache: true
           working-directory: ./fasp_base
 
@@ -46,7 +46,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ruby-3.3.6
+          ruby-version: ruby-4.0.9
           bundler-cache: true
           working-directory: ./fasp_base
 
