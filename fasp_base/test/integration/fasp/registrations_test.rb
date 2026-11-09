@@ -18,7 +18,6 @@ module Fasp
 
       new_server = FaspBase::Server.last
 
-      # assert_redirected_to fasp_base.server_path(new_server)
       assert_equal "https://fedi.example.com/fasp", new_server.base_url
     end
 
