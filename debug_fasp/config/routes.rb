@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  concern :mass_deleteable do
-    collection do
-      delete "/" => :destroy_all
-    end
-  end
-
   namespace :fasp do
     namespace :debug do
       namespace :v0 do
@@ -17,24 +11,10 @@ Rails.application.routes.draw do
     end
   end
 
-
-  resources :accounts, only: [ :index, :show, :destroy ],
-    concerns: :mass_deleteable
-
-  resources :backfill_requests, only: [ :index, :create, :update, :destroy ]
-
-  resources :contents, only: [ :index, :show, :destroy ],
-    concerns: :mass_deleteable
-
   resources :logs, only: [ :index, :destroy ]
 
-  resources :subscriptions, only: [ :index, :create, :destroy ]
-
-  resources :trend_signals, only: [ :index, :destroy ],
-    concerns: :mass_deleteable
-
   mount FaspBase::Engine, at: "/"
-  mount FaspDataSharing::Engine, at: "/"
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
