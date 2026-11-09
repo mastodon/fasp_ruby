@@ -86,26 +86,14 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     assert_equal "https://fedi.example.com/fasp", new_server.base_url
   end
 
-  test "registration with valid data and `return_to` with a matching URL" do
-    get fasp_base.new_registration_path(return_to: "https://fedi.example.com/done")
+  test "registration with valid data and `return_to_server` redirects to special endpoint using given id" do
+    get fasp_base.new_registration_path(return_to_server: "abc123")
 
     assert_difference [ -> { FaspBase::User.count }, -> { FaspBase::Server.count } ], 1 do
       post fasp_base.registration_path, params: valid_params
     end
 
-    assert_redirected_to "https://fedi.example.com/done"
-  end
-
-  test "registration with valid data and `return_to` with a non-matching URL" do
-    get fasp_base.new_registration_path(return_to: "https://other.example.com/done")
-
-    assert_difference [ -> { FaspBase::User.count }, -> { FaspBase::Server.count } ], 1 do
-      post fasp_base.registration_path, params: valid_params
-    end
-
-    new_server = FaspBase::Server.last
-
-    assert_redirected_to fasp_base.server_path(new_server)
+    assert_redirected_to "https://fedi.example.com/fasp/registration_completion?return_id=abc123"
   end
 
   private
