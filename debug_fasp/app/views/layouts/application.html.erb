@@ -13,7 +13,6 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -27,7 +26,6 @@
           </p>
           <% if signed_in? %>
             <%= nav_link_to t(".logs"), main_app.logs_path %>
-            <%= nav_link_to t(".data_sharing"), main_app.subscriptions_path %>
           <% end %>
         </div>
         <div class="flex gap-8">
