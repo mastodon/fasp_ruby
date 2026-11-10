@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_09_081146) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_10_090729) do
   create_table "accounts", force: :cascade do |t|
     t.string "uri", null: false
     t.string "object_type", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_09_081146) do
 
   create_table "fasp_base_servers", force: :cascade do |t|
     t.string "base_url", null: false
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "fasp_private_key_pem", null: false
