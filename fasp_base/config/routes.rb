@@ -12,6 +12,11 @@ FaspBase::Engine.routes.draw do
   end
 
   namespace :fasp do
+    resource :actor, only: [ :show ] do
+      resource :inbox, only: [ :show, :create ]
+      resource :outbox, only: [ :show ]
+    end
+
     resources :capabilities, only: [] do
       resource :activation, path: "/:version/activation", only: [ :create, :destroy ]
     end
@@ -30,4 +35,5 @@ end
 
 Rails.application.routes.draw do
   get "/.well-known/host-meta.json", to: "fasp_base/host_meta#show"
+  get "/.well-known/webfinger", to: "fasp_base/webfinger#show", as: :webfinger
 end
