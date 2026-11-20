@@ -79,6 +79,8 @@ The following can be configured:
 * `privacy_policy_language`: As returned in the provider info
 * `contact_email`: As returned in the provider info
 * `fediverse_account`: As returned in the provider info
+* `actor`: Toggle support for serving a fake fediverse actor, including
+  webfinger (default: `false`)
 
 ## User Interface
 
