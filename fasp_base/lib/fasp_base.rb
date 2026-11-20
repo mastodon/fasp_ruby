@@ -16,6 +16,7 @@ module FaspBase
   mattr_accessor :capabilities, default: []
   mattr_accessor :contact_email
   mattr_accessor :fediverse_account
+  mattr_accessor :actor, default: false
 
   def self.base_url
     protocol = Rails.env.production? ? "https" : "http"
